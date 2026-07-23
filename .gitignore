@@ -21,3 +21,8 @@ venv/
 
 # Database
 *.db
+
+# Docker Volumes (if created locally)
+postgres_data/
+qdrant_storage/
+n8n_data/
