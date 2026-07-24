@@ -1,11 +1,11 @@
 # 🚀 Enterprise Document Intelligence
 
-> A production-ready Enterprise Document Intelligence Platform that automates document processing using OCR, AI-powered information extraction, semantic search, RAG, workflow automation, and human validation.
+> A production-ready Enterprise Document Intelligence Platform that automates document processing using OCR, AI-powered information extraction, semantic search, Retrieval-Augmented Generation (RAG), workflow automation, and human validation.
 
 <p align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-Planned-009688?logo=fastapi)
+![FastAPI](https://img.shields.io/badge/FastAPI-Running-009688?logo=fastapi)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)
 ![n8n](https://img.shields.io/badge/n8n-Community-EA4B71?logo=n8n)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Configured-4169E1?logo=postgresql)
@@ -18,7 +18,7 @@
 
 # 📖 Overview
 
-Enterprise Document Intelligence is an AI-powered platform designed to automate the processing of business documents such as:
+Enterprise Document Intelligence is an AI-powered platform that automates the processing of business documents such as:
 
 - Invoices
 - Receipts
@@ -26,7 +26,9 @@ Enterprise Document Intelligence is an AI-powered platform designed to automate 
 - Contracts
 - Financial Documents
 
-Instead of manually reviewing documents, the system extracts structured information, validates results, stores them in databases, generates vector embeddings, and enables semantic search using Retrieval-Augmented Generation (RAG).
+Instead of manually reviewing documents, the system extracts structured information, validates results, stores structured data in PostgreSQL, generates vector embeddings, enables semantic search using Qdrant, and supports Retrieval-Augmented Generation (RAG) for intelligent document retrieval.
+
+The goal of this project is to demonstrate production-ready AI backend engineering concepts including modern API design, workflow automation, OCR, vector databases, and enterprise software architecture.
 
 ---
 
@@ -48,20 +50,34 @@ Instead of manually reviewing documents, the system extracts structured informat
 
 ## ✅ Completed
 
-- Docker Desktop Setup
+### Infrastructure
+
+- Docker Desktop
 - Docker Compose
-- n8n Community Edition
 - PostgreSQL
 - Qdrant Vector Database
-- Local Development Environment
-- Project Documentation
-- Project Structure
+- n8n Community Edition
+- Development Environment
 
-## 🚧 In Progress
+### Backend Foundation
 
-- Backend Development
-- FastAPI
+- FastAPI Project Structure
+- Python Virtual Environment
+- Centralized Configuration (`pydantic-settings`)
+- Environment Variable Management
+- Production Logging
+- API Versioning
+- Health Check Endpoint
+- Interactive Swagger Documentation
+
+---
+
+## 🚧 Currently Building
+
 - OCR Pipeline
+- File Upload API
+- Database Integration
+- AI Extraction Engine
 
 ---
 
@@ -69,13 +85,15 @@ Instead of manually reviewing documents, the system extracts structured informat
 
 | Category | Technology |
 |-----------|------------|
-| Backend | FastAPI (Planned) |
-| Frontend | React (Planned) |
-| Automation | n8n Community |
+| Backend | FastAPI |
+| Language | Python |
+| Configuration | Pydantic Settings |
 | Database | PostgreSQL |
 | Vector Database | Qdrant |
-| OCR | PaddleOCR (Planned) |
-| AI | OpenAI |
+| Automation | n8n Community |
+| OCR | PaddleOCR *(Planned)* |
+| AI | OpenAI / Anthropic *(Planned)* |
+| Frontend | React *(Planned)* |
 | Containerization | Docker |
 | Version Control | Git & GitHub |
 
@@ -87,15 +105,27 @@ Instead of manually reviewing documents, the system extracts structured informat
 Enterprise-Document-Intelligence/
 
 ├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── schemas/
+│   │   └── main.py
+│   ├── requirements.txt
+│   └── .env
+│
 ├── frontend/
+│
 ├── docs/
 │   ├── DAILY_LOG.md
 │   └── SETUP.md
+│
 ├── n8n/
 │   └── workflows/
+│
 ├── sample_documents/
-├── .env.example
+│
 ├── docker-compose.yml
+├── .env.example
 └── README.md
 ```
 
@@ -103,16 +133,30 @@ Enterprise-Document-Intelligence/
 
 # 🚀 Local Development
 
-Start the complete development environment with:
+## Start Infrastructure
 
 ```bash
 docker compose up -d
 ```
 
-Available Services
+## Start Backend
+
+```bash
+cd backend
+
+.\venv\Scripts\activate
+
+uvicorn app.main:app --reload
+```
+
+---
+
+# 🌐 Available Services
 
 | Service | URL |
 |----------|-----|
+| FastAPI Docs | http://127.0.0.1:8000/docs |
+| Health API | http://127.0.0.1:8000/api/v1/health |
 | n8n | http://localhost:5678 |
 | PostgreSQL | localhost:5432 |
 | Qdrant Dashboard | http://localhost:6333/dashboard |
@@ -121,19 +165,54 @@ Available Services
 
 # 📅 Development Roadmap
 
-- [x] Infrastructure Setup
+## Phase 1 — Infrastructure
+
 - [x] Docker Environment
 - [x] PostgreSQL
 - [x] Qdrant
-- [x] n8n Community
-- [ ] FastAPI Backend
-- [ ] OCR Pipeline
-- [ ] AI Extraction
-- [ ] Human Validation
+- [x] n8n Community Edition
+
+## Phase 2 — Backend Foundation
+
+- [x] FastAPI Setup
+- [x] Configuration Management
+- [x] Logging
+- [x] API Versioning
+- [x] Health Endpoint
+- [x] Swagger Documentation
+
+## Phase 3 — Document Intelligence
+
+- [ ] File Upload API
+- [ ] OCR Processing
+- [ ] AI Information Extraction
+- [ ] PostgreSQL Storage
+- [ ] Vector Embeddings
 - [ ] Semantic Search
 - [ ] RAG Integration
+
+## Phase 4 — Enterprise Features
+
+- [ ] Human Validation
 - [ ] Dashboard
+- [ ] Workflow Automation
 - [ ] Production Deployment
+
+---
+
+# 🎯 Project Goals
+
+This project is designed to demonstrate:
+
+- Enterprise Backend Development
+- FastAPI Best Practices
+- AI Document Processing
+- OCR Pipelines
+- Vector Databases
+- Retrieval-Augmented Generation (RAG)
+- Docker-Based Development
+- Workflow Automation
+- Production Software Architecture
 
 ---
 

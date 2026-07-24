@@ -1,43 +1,106 @@
-# Enterprise Document Intelligence - Local Setup
+# ⚙️ Enterprise Document Intelligence - Setup Guide
 
-## Prerequisites
+This guide explains how to set up the project for local development.
 
+---
+
+# Prerequisites
+
+Make sure the following are installed:
+
+- Python 3.12+
 - Docker Desktop
 - Git
-- VS Code
 
-## Setup
+---
 
-1. Clone the repository
+# Clone Repository
 
 ```bash
 git clone <repository-url>
-```
-
-2. Navigate into the project
-
-```bash
 cd Enterprise-Document-Intelligence
 ```
 
-3. Copy the environment file
+---
 
-```bash
-cp .env.example .env
-```
+# Start Infrastructure
 
-(On Windows, simply duplicate `.env.example` and rename it to `.env`.)
-
-4. Start all services
+Start all required services:
 
 ```bash
 docker compose up -d
 ```
 
-## Local Services
+This starts:
+
+- PostgreSQL
+- Qdrant
+- n8n Community Edition
+
+---
+
+# Backend Setup
+
+Navigate to backend:
+
+```bash
+cd backend
+```
+
+Create virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate virtual environment (Windows):
+
+```powershell
+.\venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Run FastAPI
+
+```bash
+uvicorn app.main:app --reload
+```
+
+---
+
+# Available Services
 
 | Service | URL |
 |----------|-----|
+| FastAPI Docs | http://127.0.0.1:8000/docs |
+| Health API | http://127.0.0.1:8000/api/v1/health |
 | n8n | http://localhost:5678 |
 | PostgreSQL | localhost:5432 |
 | Qdrant Dashboard | http://localhost:6333/dashboard |
+
+---
+
+# Stop Development Environment
+
+Infrastructure:
+
+```bash
+docker compose down
+```
+
+Backend:
+
+Press
+
+```
+CTRL + C
+```
+
+to stop the FastAPI server.
