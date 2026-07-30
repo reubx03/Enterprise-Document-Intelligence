@@ -32,6 +32,15 @@ class Settings(BaseSettings):
     ocr_output_directory: str
     ocr_confidence_threshold: float
 
+    # ----------------------------
+    # LLM Extraction
+    # ----------------------------
+    gemini_api_key: str
+    gemini_model: str
+    extraction_max_tokens: int
+    extraction_temperature: float
+    extraction_confidence_threshold: float
+
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore",
