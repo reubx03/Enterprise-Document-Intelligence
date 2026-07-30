@@ -8,7 +8,7 @@ from app.exceptions.upload_exceptions import FileStorageError
 
 class LocalStorage:
     """
-    Handles saving uploaded files to local storage.
+    Handles saving and deleting files in local storage.
     """
 
     async def save_file(
@@ -29,6 +29,7 @@ class LocalStorage:
             with open(file_path, "wb") as f:
                 f.write(content)
 
+            # Reset file pointer so it can be read again if needed
             await file.seek(0)
 
             return file_path
@@ -36,4 +37,21 @@ class LocalStorage:
         except Exception as e:
             raise FileStorageError(
                 f"Failed to save file: {e}"
+            )
+
+    def delete_file(
+        self,
+        file_path: Path,
+    ) -> None:
+        """
+        Deletes a file from local storage.
+        """
+
+        try:
+            if file_path.exists():
+                file_path.unlink()
+
+        except Exception as e:
+            raise FileStorageError(
+                f"Failed to delete file: {e}"
             )
