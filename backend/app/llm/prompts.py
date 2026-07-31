@@ -6,16 +6,66 @@ class PromptBuilder:
     Builds prompts for document information extraction.
     """
 
-    @staticmethod
-    def build_extraction_prompt(document_text: str) -> str:
+    FIELD_TEMPLATES = {
+        "invoice": [
+            "invoice_number",
+            "vendor",
+            "customer",
+            "invoice_date",
+            "due_date",
+            "subtotal",
+            "tax_amount",
+            "total_amount",
+        ],
+        "resume": [
+            "candidate_name",
+            "email",
+            "phone",
+            "skills",
+            "experience_years",
+            "latest_role",
+        ],
+    }
+
+    @classmethod
+    def build_extraction_prompt(
+        cls,
+        document_text: str,
+        document_type: str = "auto",
+    ) -> str:
+
+        fields = cls.FIELD_TEMPLATES.get(document_type)
+
+        if fields is None:
+            fields = [
+                "title",
+                "document_type",
+                "date",
+                "author",
+                "summary",
+                "key_entities",
+                "key_value_pairs",
+            ]
+
+        field_list = "\n".join(f"- {field}" for field in fields)
+
         return dedent(f"""
         You are an expert document intelligence system.
 
-        Analyze the following document and extract the important information.
+        Analyze the document carefully.
 
-        Return ONLY valid JSON.
+        Extract ONLY the following fields:
 
-        If a field cannot be found, use null.
+        {field_list}
+
+        Rules:
+        - Return ONLY valid JSON.
+        - Do not include explanations.
+        - If a value is missing, return null.
+        - Do not invent information.
+
+        Document Type:
+        {document_type}
 
         Document:
 

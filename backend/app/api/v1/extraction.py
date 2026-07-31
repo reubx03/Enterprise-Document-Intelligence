@@ -11,5 +11,6 @@ service = ExtractionService()
 @router.post("/extract")
 def extract_document(request: ExtractionRequest):
     return service.extract(
-        request.document_text
+        document_text=request.document_text,
+        document_type=request.document_type,
     )
