@@ -56,3 +56,19 @@ class ExtractionResponse(BaseModel):
     ]
 
     document_id: str | None = None
+    
+class ExtractionRequest(BaseModel):
+    document_text: str = Field(
+        ...,
+        description="OCR extracted document text."
+    )
+
+    document_type: Literal[
+        "invoice",
+        "resume",
+        "contract",
+        "purchase_order",
+        "receipt",
+        "bank_statement",
+        "auto",
+    ] = "auto"
