@@ -4,6 +4,10 @@ from fastapi.responses import JSONResponse
 from app.api.v1.router import router as api_router
 from app.core.config import settings
 from app.core.logging import setup_logging
+from app.exceptions.pipeline_exceptions import (
+    PipelineExtractionStageError,
+    PipelineOCRStageError,
+)
 from app.exceptions.upload_exceptions import (
     FileStorageError,
     FileTooLargeError,
@@ -61,6 +65,34 @@ async def file_storage_handler(
     return JSONResponse(
         status_code=500,
         content={
+            "detail": str(exc),
+        },
+    )
+
+
+@app.exception_handler(PipelineOCRStageError)
+async def pipeline_ocr_handler(
+    request: Request,
+    exc: PipelineOCRStageError,
+):
+    return JSONResponse(
+        status_code=500,
+        content={
+            "stage": "ocr",
+            "detail": str(exc),
+        },
+    )
+
+
+@app.exception_handler(PipelineExtractionStageError)
+async def pipeline_extraction_handler(
+    request: Request,
+    exc: PipelineExtractionStageError,
+):
+    return JSONResponse(
+        status_code=500,
+        content={
+            "stage": "extraction",
             "detail": str(exc),
         },
     )

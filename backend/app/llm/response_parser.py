@@ -32,9 +32,16 @@ class ResponseParser:
         cleaned = cleaned.strip()
 
         try:
-            return json.loads(cleaned)
+            parsed = json.loads(cleaned)
 
         except json.JSONDecodeError as e:
             raise MalformedExtractionResponseError(
                 f"Failed to parse LLM response: {e}"
+            ) from e
+
+        if not isinstance(parsed, dict):
+            raise MalformedExtractionResponseError(
+                "LLM response must be a JSON object."
             )
+
+        return parsed
