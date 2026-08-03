@@ -1,0 +1,3 @@
+from .document_repository import DocumentRepository
+from .ocr_repository import OCRResultRepository
+from .extraction_repository import ExtractionResultRepository
