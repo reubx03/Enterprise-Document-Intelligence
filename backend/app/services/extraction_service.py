@@ -20,16 +20,30 @@ class ExtractionService:
         Extract structured information from OCR text.
         """
 
-        # Build prompt
+        # -----------------------------
+        # Build Prompt
+        # -----------------------------
         prompt = PromptBuilder.build_extraction_prompt(
             document_text=document_text,
             document_type=document_type,
         )
 
-        # Generate LLM response
+        # -----------------------------
+        # Generate LLM Response
+        # -----------------------------
         response = self.llm_client.generate(prompt)
 
-        # Parse JSON response
+        print("\n========== RAW GEMINI RESPONSE ==========")
+        print(response)
+        print("=========================================\n")
+
+        # -----------------------------
+        # Parse JSON Response
+        # -----------------------------
         parsed_response = ResponseParser.parse_json(response)
+
+        print("\n========== PARSED GEMINI RESPONSE ==========")
+        print(parsed_response)
+        print("============================================\n")
 
         return parsed_response
