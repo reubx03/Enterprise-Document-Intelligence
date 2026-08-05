@@ -1,4 +1,4 @@
-from fastapi import UploadFile
+from fastapi import HTTPException, UploadFile
 
 from app.db.repositories.document_repository import DocumentRepository
 from app.db.repositories.extraction_repository import (
@@ -53,6 +53,15 @@ class DocumentProcessingService:
         file: UploadFile,
         document_type: str = "auto",
     ):
+        # -----------------------------
+        # Validate uploaded file
+        # -----------------------------
+        if file.content_type != "application/pdf":
+            raise HTTPException(
+                status_code=415,
+                detail="Only PDF files are supported.",
+            )
+
         # -----------------------------
         # Create the document record
         # -----------------------------
