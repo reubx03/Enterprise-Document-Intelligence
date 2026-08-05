@@ -26,3 +26,14 @@ venv/
 postgres_data/
 qdrant_storage/
 n8n_data/
+
+# Uploads
+uploads/
+uploads/**
+
+# OCR Output
+ocr_results/
+
+# Runtime uploads
+uploads/
+
